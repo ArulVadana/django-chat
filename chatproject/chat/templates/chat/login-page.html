@@ -1,0 +1,53 @@
+{% extends 'main.html' %}
+
+
+{% block content %}
+{% if page == 'login' %}
+<div class="login-form-section">
+    <h2 style="text-align:center">Login</h2>
+    <div class="room-form">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div class="form-gp">
+        <label>Username</label>
+        <input type="text" name="username" placeholder="Enter username">
+        </div>
+        <div class="form-gp">
+        <label>Password</label>
+        <input type="password" name="password" placeholder="Enter password">
+        </div>
+        <div class="form-action">
+            <input class="submit" type="submit" value="Login">
+        </div>
+    </form>
+    <p style="text-align:center">Haven't registered yet?</p>
+    <p style="text-align:center"><a href="{% url 'register' %}" style="color:aqua">Sign Up</a></p>
+    </div>
+</div>
+{% else %}
+<div class="login-form-section">
+    <h2 style="text-align:center">Sign Up</h2>
+    <div class="room-form">
+        <form action="" method="POST">
+        {% csrf_token %}
+        {% for field in form %}
+        <div class="form-gp">
+            <div><label for="rooom.name">{{field.label}}</label></div>
+            
+            <div>{{field}}</div>
+        </div>
+        {% endfor %}
+       
+
+        <div class="form-action">
+            <input class="submit" type="submit" value="Sign Up">
+        </div>
+        </form>
+
+        {{form.errors}}
+        <p style="text-align:center">Already registered </p>
+        <p style="text-align:center"><a href="{% url 'login-page' %}" style="color:aqua;">login</a></p>
+</div>
+</div>
+{% endif %}
+{% endblock %}

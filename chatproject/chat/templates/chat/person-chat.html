@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="room-box">
+    <a href="{% url 'home' %}"> <i class="fa fa-arrow-left back-arrow" aria-hidden="true"></i></a>
+    <h1 class="room-heading">{{person.username}}</h1>
+
+    <!-- {% if request.user == person1.username  %}
+    <h1 class="room-heading">{{person1.username}}</h1>
+    {% else %}
+    <h1 class="room-heading">{{person2.username}}</h1>
+    {% endif %} -->
+
+    <div class="message-container">
+    {% for chat in chats %}
+    <div class="message-box">
+    <small>@{{chat.sender.username}} <span>{{chat.created|timesince}} ago</span></small>
+    <p>{{chat.body}}</p>
+    </div>
+    {% endfor %}
+    </div>
+    <div class="message-write">
+    
+        {% if user.is_authenticated %}
+        <div class="message-bar">
+        <form action="" method="post">
+            {% csrf_token %}
+            <input type="text" name="body" class="msg-box" placeholder="Write your message...">
+        </form>  
+        <i class="fa fa-paper-plane send-icon" aria-hidden="true"></i>
+        </div>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

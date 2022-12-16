@@ -1,0 +1,15 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="room-box">
+    <form action="" method="POST">
+        {% csrf_token %}
+        <div style="text-align: center;">
+            <h4>Are you sure you want to delete "{{room}}"</h4>
+            <a href="{{request.META.HTTP_REFERER}}"><i class="fa fa-arrow-left" aria-hidden="true"></i> Go Back</a>
+            <input class="delete" type="submit" value="Delete">
+        </div>
+    </form>
+</div>
+{% endblock %}

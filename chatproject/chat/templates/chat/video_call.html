@@ -1,0 +1,32 @@
+{% extends 'main.html' %}
+{% load static %}
+{% block content %}
+
+<div>
+    <h1 style="text-align: center; margin:10px;">Room Name : {{room.name}}</h1>
+    
+
+    <div class="video-wrapper" id="video-stream">
+        <!-- <div class="video-box" id="user-container-${user.uid}">
+            <div class="video-player" id="user-${user.uid}"></div>
+            <div class="name-wrapper"><span class="username">Ram</span></div> 
+        </div> -->
+    </div>
+
+    <div class="controllers">
+        <div class="control-wrapper" id="voice-control">
+            <p class="control-icon" ><i class="fa fa-microphone" aria-hidden="true"></i></p>
+        </div>
+        <div class="control-wrapper" id="video-control">
+            <p class="control-icon"><i class="fa fa-video-camera" aria-hidden="true"></i></p>
+        </div>
+        <div class="control-wrapper" id="exit">
+            <p class="control-icon" ><i class="fa fa-sign-out" aria-hidden="true"></i></p>
+        </div>
+    </div>
+</div>
+
+<script src="{% static 'assets/AgoraRTC_N-4.14.2.js' %}"></script>
+<script type="text/javascript" src="{% static 'js/base.js' %}">
+</script>
+{% endblock %}

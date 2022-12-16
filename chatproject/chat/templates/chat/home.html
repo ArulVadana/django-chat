@@ -1,0 +1,75 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<style>
+    .container{
+        width: 90%;
+        margin: auto;
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        justify-content: space-between;
+        align-items:flex-start;
+
+    }
+</style>
+<div class="container">
+    <div class="topic-container">
+        <h2 class="heading">List of topics</h2>
+        <p class="topic-box"><a href="{% url 'home'%}">ALL<span>{{topics.count}}</span></a></p>
+        {% for topic in topics %}
+        <p class="topic-box"><a href="{% url 'home'%}?q={{topic.name}}">{{topic.name}}<span>{{topic.room_set.all.count}}</span></a></p>
+        {% endfor %}
+    </div>
+
+    <div class="room-container">
+        
+        <h1 class="heading">ROOMS</h1>
+        <div class="second-heading">
+            <h3>{{room_count}} rooms avalaible</h3>
+            <a href="{% url 'create-room' %}" id="create-room"> + Create Room</a>
+        </div>
+        {% for room in rooms %}
+        <section class="room-box">
+        <div class="room-top">
+            <span>{{room.created|timesince}} ago</span>
+      
+            {% if request.user == room.host %}
+            <a href="{% url 'update-room' room.id %}" class="close"><i class="fa fa-pencil room-icon" aria-hidden="true"></i></a>
+            <a href="{% url 'delete-room' room.id %}"class="close"><i class="fa fa-trash room-icon" aria-hidden="true"></i></a>
+            {% endif %}
+       
+        </div>
+        <p class="user-name">@{{room.host.username}}</p>
+        <h3 class="room-heading"><a href="{% url 'room' room.id room.name %}">{{room.name}}</a></h3>
+        <p class="room-desc">{{room.description}}</p>
+        
+        <hr class="hr-line">
+        <div class="bottom">
+            <i class="fa fa-users group" aria-hidden="true"> <small>{{room.participants.all.count}}  joined</small></i>
+            <p class="bottom-topic">{{room.topic}}</p>
+            
+        </div>
+        </section>
+    
+        {% endfor %}
+    </div>
+    <div class="friends-container">
+    <div class="friends-box ">
+        <div class="friends-top">
+            <h2 >Friends</h2>
+            <br>
+        </div>
+        {% for user in users %}
+            {% if user.is_authenticated %}
+                {% if user != request.user %}
+                    <div class="private">
+                        <p><a href="{% url 'personal-chat' request.user.id user.id  user.username %}">{{user.first_name}} {{user.last_name}}</a></p>
+                        <p><a href="{% url 'personal-chat' request.user.id user.id user.username %}" style="color: aqua;">@{{user.username}}</a></p>
+                    </div>
+                {% endif %}
+            {% endif %}
+        {% endfor %}
+    </div>
+    </div>
+</div>
+{%  endblock %}

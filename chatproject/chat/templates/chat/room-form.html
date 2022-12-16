@@ -1,0 +1,36 @@
+{% extends 'main.html' %}
+
+{% block content %}
+
+<div class="room-form-section">
+    <h2 style="text-align:center">Create / Update Room</h2>
+    <div class="room-form">
+    <form action="" method="post">
+        {% csrf_token %}
+        <div class="form-gp">
+            <label for="topic">Topic</label>
+            <input list="list-topics" name="topic" value="{{room.topic.name}}">
+                <datalist id="list-topics">
+                {% for t in topic %}
+                <option value="{{t.name}}">{{t.name}}</option>
+                {% endfor %}
+                </datalist>
+        </div>
+
+        <div class="form-gp">
+            <label for="name">Room Name</label>
+            {{form.name}}
+        </div>
+
+        <div class="form-gp">
+            <label for="description">Description</label>
+            {{form.description}}
+        </div>
+        <div class="form-action">
+            <!-- <button class="submit">Submit</button> -->
+            <input class="submit" type="submit" value="Submit">
+        </div>
+    </form>
+    </div>
+</div>
+{% endblock %}

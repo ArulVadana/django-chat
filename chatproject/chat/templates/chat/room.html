@@ -1,0 +1,80 @@
+{% extends 'main.html' %}
+
+{% block content %}
+<div class="room-section">
+<div class="room-box">
+
+    <div class="room-top">
+        <span>{{room.created|timesince}} ago</span>
+        {% if request.user == room.host %}
+        <a href="{% url 'update-room' room.id %}" class="close"><i class="fa fa-pencil room-icon" aria-hidden="true"></i></a>
+        <a href="{% url 'delete-room' room.id %}"class="close"><i class="fa fa-trash room-icon" aria-hidden="true"></i></a>
+        {% endif %}
+    </div>
+    <a href="{% url 'home' %}"> <i class="fa fa-arrow-left back-arrow" aria-hidden="true"></i></a>
+    <h1 class="room-heading">{{room.name}}</h1>
+    <small class="bottom-topic">{{room.topic}}</small>
+    
+    <a href="{% url 'video-call' room.id %}" id="join-video"> Join video call</a>
+    
+    <div class="message-container" id="msg-box1">
+    {% for room_message in room_messages %}
+    <div class="message-box">
+    <small><span class="user-name">@{{room_message.user.username}} </span>    {{room_message.created|timesince}} ago </small>
+    <p class="message-body">{{room_message.body}}</p>
+    </div>
+    {% endfor %}
+    </div>
+    <div class="message-write">
+    
+    {% if user.is_authenticated %}
+    <div class="message-bar">
+    <form action="" method="post" id="form">
+        {% csrf_token %}
+        <input type="text" name="body" class="msg-box" placeholder="Write your message...">
+    </form>  
+    <i class="fa fa-paper-plane send-icon" aria-hidden="true"></i>
+    </div>
+    {% endif %}
+</div>
+</div>
+<div class="friends-container">
+    <div class="friends-box ">
+        <h1>participants</h1>
+
+        {% for user in participants %}
+        <div class="private">
+        {% if user == room.host %}
+            <p><a href="{% url 'personal-chat' request.user.id user.id user.username %}">@{{user.username}}*</a></p>
+        {% else %}
+            <p><a href="{% url 'personal-chat' request.user.id user.id user.username %}">@{{user.username}}</a></p>
+        {% endif %}
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+
+<script>
+    let getvToken = async (e) => {
+        let room = document.getElementsByClassName('room-heading')[0].innerText
+        let name = document.getElementById('nav-user').innerText
+        let response=await fetch(`/get_token/?channel=${room}`)
+        let data = await response.json()
+
+        let UID = data.uid
+        let token = data.token
+
+        sessionStorage.setItem('UID', UID)
+        sessionStorage.setItem('token', token)
+        sessionStorage.setItem('room', room)
+        sessionStorage.setItem('name', name)
+    
+    }
+
+    let stream = document.getElementById('join-video').addEventListener('click',getvToken)
+</script>
+
+
+{%  endblock %}
+

@@ -1,0 +1,18 @@
+<nav>
+<div class="navbar">
+    <a href="/" class="logo">ChatChat</a>
+    <div class="search-bar">
+        <i class="fa fa-search search-icon" aria-hidden="true" style="color: #fff;"></i>
+        <form action="" method="get">
+            <input type="text" name="q" placeholder="Search Rooms here...">
+        </form>
+       
+    </div>
+    {% if user.is_authenticated %}
+    <a href="{% url 'profile' request.user.id %}"><p >Hi <span id="nav-user">{{request.user}} </span><i class="fa fa-user" aria-hidden="true"></i> </p></a>
+    <a href="{% url 'logout' %}" class="nav-menu">logout</a>
+    {% else %}
+    <a href="{% url 'login-page' %}" class="nav-menu">login</a>
+    {% endif %}
+</div>
+</nav>
