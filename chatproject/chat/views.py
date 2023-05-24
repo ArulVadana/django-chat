@@ -13,6 +13,7 @@ from agora_token_builder import RtcTokenBuilder
 from django.http import JsonResponse
 import time
 import json
+import os
 
 # Create your views here.
 
@@ -195,8 +196,9 @@ def videoCall(request,pk):
 @login_required(login_url='login-page')
 @csrf_exempt
 def getToken(request):
-    appId= 'APP ID'
-    appCertificate = 'APP CERTIFICATE'
+    appId = os.environ.get("APP_ID")
+    appCertificate = os.environ.get("APP_CERTIFICATE")
+    print(appId)
     channelName = request.GET.get('channel')
     uid=request.user.id
     role = 1

@@ -28,8 +28,10 @@
             <h3>{{room_count}} rooms avalaible</h3>
             <a href="{% url 'create-room' %}" id="create-room"> + Create Room</a>
         </div>
+        
         {% for room in rooms %}
         <section class="room-box">
+
         <div class="room-top">
             <span>{{room.created|timesince}} ago</span>
       
