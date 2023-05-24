@@ -15,6 +15,9 @@ from pathlib import Path
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
+from dotenv import load_dotenv
+
+load_dotenv()
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/4.0/howto/deployment/checklist/
@@ -32,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
 
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -79,7 +83,8 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'chatproject.wsgi.application'
+ASGI_APPLICATION = 'chatproject.asgi.application'
+# WSGI_APPLICATION = 'chatproject.wsgi.application'
 
 
 # Database

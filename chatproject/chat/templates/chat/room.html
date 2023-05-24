@@ -55,6 +55,7 @@
 </div>
 </div>
 
+
 <script>
     let getvToken = async (e) => {
         let room = document.getElementsByClassName('room-heading')[0].innerText
@@ -74,7 +75,43 @@
 
     let stream = document.getElementById('join-video').addEventListener('click',getvToken)
 </script>
+<script>
+    roomName = document.getElementsByClassName("room-heading")[0].textContent
+    roomName=roomName.replaceAll(" ",'')
+    
+    let websocket = new WebSocket('ws://'+ window.location.host + '/ws/chat/'+ roomName)
 
+    websocket.onopen = function(){
+        console.log('websocket connecting...')
+    }
+
+    websocket.onclose = function(e){
+        console.log("websocket closed....")
+    }
+
+    websocket.onmessage = function(e){
+        const data = JSON.parse(e.data)
+        let box= `<div class="message-box">
+            <small><span class="user-name">@${data.username} </span> Just now </small>
+            <p class="message-body">${data.message}</p>
+            </div>`
+
+        let msg= document.getElementById("msg-box1")
+        msg.insertAdjacentHTML("afterbegin",box)
+    }
+
+    let form = document.getElementById("form")
+    form.addEventListener('submit',(e)=>{
+
+        // e.preventDefault()
+        let text=document.getElementsByClassName("msg-box")[0].value
+        let user=document.getElementById("nav-user").textContent
+        websocket.send(JSON.stringify({
+            'message': text,
+            'username' : user
+        }))
+    })
+</script>
 
 {%  endblock %}
 
