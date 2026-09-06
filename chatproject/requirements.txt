@@ -1,10 +1,11 @@
+backports.zoneinfo==0.2.1; python_version < "3.9"
+cffi==1.17.1
+
 agora-token-builder==1.0.0
 asgiref==3.5.2
 attrs==23.1.0
 autobahn==23.1.2
-Automat==22.10.0
-backports.zoneinfo==0.2.1
-cffi==1.15.1
+Automat==24.8.0
 channels==4.0.0
 constantly==15.1.0
 cryptography==40.0.2
@@ -12,7 +13,7 @@ daphne==4.0.0
 Django==4.1.1
 hyperlink==21.0.0
 idna==3.4
-incremental==22.10.0
+incremental==24.7.2
 pyasn1==0.5.0
 pyasn1-modules==0.3.0
 pycparser==2.21
@@ -21,9 +22,9 @@ python-dotenv==1.0.0
 service-identity==21.1.0
 six==1.16.0
 sqlparse==0.4.2
-Twisted==22.10.0
+Twisted==24.10.0
 twisted-iocpsupport==1.0.3
 txaio==23.1.1
-typing_extensions==4.5.0
+typing_extensions==4.12.2
 tzdata==2022.2
-zope.interface==6.0
+zope.interface==7.2
