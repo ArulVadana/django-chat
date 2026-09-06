@@ -1,4 +1,5 @@
 # django-chat
+In a chat application
 
 ## Modifications
 
